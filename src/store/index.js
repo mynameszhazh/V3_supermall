@@ -7,13 +7,16 @@ const store = createStore({
     return  {
       order: 0,
       target: null,
+      goodCurrentType: 'pop'
     }
   },
   mutations: {
     itemclickchange(state){
-      console.log(state.target)
+      // console.log(state.target)
     },
-
+    goodCurrentTypeChange(state, payload) {
+      state.goodCurrentType = payload
+    }
   },
   // mutations的值由actions传入
   actions: {

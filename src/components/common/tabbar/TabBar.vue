@@ -1,17 +1,15 @@
 
 
-<script setup lang="ts">
-import { ref, defineProps, computed, watch } from 'vue'
+<script setup>
+import { ref, computed, watch } from 'vue'
 import $store from '@/store/index.js'
 const lef = ref('0')
 const wid = ref('90px')
 const activeIndex = ref(1)
+
 const ttarget = computed(() => {
   return $store.state.target
 })
-// let oorder = computed(() => {
-//   return $store.state.order
-// })
 watch(ttarget, (newValue) => { //直接监听
   // console.log("ttarget改变了");
   // console.log(newValue)
@@ -20,10 +18,6 @@ watch(ttarget, (newValue) => { //直接监听
   lef.value = left - 18 - parentLeft + 'px';
   wid.value = width + 28 + 'px'
   activeIndex.value = $store.state.order
-})
-const props = defineProps({
-  order: Number,
-  target: String,
 })
 </script>
 

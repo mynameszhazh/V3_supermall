@@ -8,13 +8,29 @@
 
 <script setup>
   import { defineProps, ref } from 'vue'
+  import $store from '@/store/index.js'
+
   const currentIndex = ref(0)
   defineProps({
     tabList: {type: Array, required: true,}
    
   })
   const changeTab = (index) => {
+    // console.log(index)
+    let tempType = ''
     currentIndex.value = index
+    switch (index) {
+      case 0 :
+        tempType = 'pop'
+        break
+      case 1 :
+        tempType = 'new'
+        break
+      case 2 :
+        tempType = 'sell'
+        break
+    }
+    $store.commit('goodCurrentTypeChange', tempType)
   }
 </script>
 
