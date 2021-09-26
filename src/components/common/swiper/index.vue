@@ -1,3 +1,64 @@
+<script setup lang="ts">
+import {onMounted, defineProps, watch, ref, PropType ,getCurrentInstance } from 'vue'
+import Swiper from '/assets/js/swiper.js'
+
+const { proxy } = getCurrentInstance()
+
+// 这里没有经过一个抽取的操作，因为这个@别名用起来老是报错
+type imgListType = {
+  image: string;
+  link: string;
+}
+const props = defineProps({
+  imgList: {
+    type: Array as PropType<imgListType[]>,
+    required: true,
+    default() {
+      return []
+    }
+  },
+  loop: {
+    type: Boolean,
+    required: false,
+    default() {
+      return true;
+    }
+  },
+  autoplay: {
+    type: Boolean,
+    required: false,
+    default() {
+      return true;
+    }
+  },
+  delay: {
+    type: Number,
+    required: false,
+    default() {
+      return 3000;
+    }
+  }
+})
+
+onMounted(() => {
+  new Swiper('.swiper-container', {
+    loop: props.loop,
+    // 如果需要分页器
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: false
+    },
+    // 这个样子的用法就是让你不是很好去二次封装一些东西一样
+    autoplay: props.autoplay ? {
+      value: false,
+      delay: props.delay,
+      disableOnInteraction: false,
+    } : false,
+  })
+})
+</script>
+
+
 <template>
   <div class="swiper-container">
     <div class="swiper-wrapper">
@@ -12,70 +73,7 @@
   </div>
 </template>
 
-<script>
-import {defineComponent, onMounted, watch, ref} from 'vue'
-// import Swiper from 'swiper'
-import Swiper from 'https://unpkg.com/swiper/swiper-bundle.esm.browser.min.js'
-//同时引入swiper的 css文件
-// import 'swiper/dist/css/swiper.min.css'
-export default defineComponent({
-  props: {
-    imgList: {
-      type: Array,
-      required: true,
-      default() {
-        return []
-      }
-    },
-    loop: {
-      type: Boolean,
-      required: false,
-      default() {
-        return true;
-      }
-    },
-    autoplay: {
-      type: Boolean,
-      required: false,
-      default() {
-        return true;
-      }
-    },
-    delay: {
-      type: Number,
-      required: false,
-      default() {
-        return 3000;
-      }
-    }
-  },
-  setup(props) {
-    // 这里存在很多很歹毒的事情，我也是不知道是什么问题就是这个东西变变得有点那么不对味道了。
-    // console.log(props.bannerList)
-    onMounted(() => {
-      new Swiper('.swiper-container', {
-        loop: props.loop,
-        // 如果需要分页器
-        pagination: {
-          el: '.swiper-pagination',
-          clickable: false
-        },
-        // 这个样子的用法就是让你不是很好去二次封装一些东西一样
-        autoplay: props.autoplay ? {
-          value: false,
-          delay: props.delay,
-          disableOnInteraction: false,
-        } : false,
-      })
-    })
-
-    return {}
-  }
-})
-</script>
-
 <style scoped>
-
 .swiper-container {
   width: 100%;
   height: 100%;

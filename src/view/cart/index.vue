@@ -6,16 +6,10 @@
     </nav-bar>
 </template>
 
-<script>
-import {defineComponent} from 'vue'
+<script setup>
+// import {} from 'vue'
 import NavBar from '/components/common/navbar/index.vue'
 
-export default defineComponent({
-  name: "",
-  components: {
-    NavBar
-  },
-})
 </script>
 
 <style scoped>

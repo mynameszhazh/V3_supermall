@@ -2,12 +2,9 @@
   <div>detail</div>
 </template>
 
-<script>
-import {defineComponent} from 'vue'
+<script setup>
+// import {} from 'vue'
 
-export default defineComponent({
-  name: ""
-})
 </script>
 
 <style scoped>

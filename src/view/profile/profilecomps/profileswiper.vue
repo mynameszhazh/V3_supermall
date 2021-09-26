@@ -1,32 +1,23 @@
 <template>
   <div class="profileswiper">
-
-
     <swiper :imgList="imgList" :delay="30000" :loop="false" :autoplay="false"></swiper>
   </div>
 </template>
 
-<script>
-import {defineComponent} from 'vue'
+<script setup>
+import { defineProps } from 'vue'
 import swiper from '/components/common/swiper/index.vue'
 
-export default defineComponent({
-  name: "",
-  components: {
-    swiper
-  },
-  props: {
-    imgList: {
-      type: Array,
-      required: true,
-      default() {
-        return [];
-      }
+const props = defineProps({
+  imgList: {
+    type: Array,
+    required: true,
+    default() {
+      return [];
     }
   }
 })
 </script>
 
 <style scoped>
-
 </style>

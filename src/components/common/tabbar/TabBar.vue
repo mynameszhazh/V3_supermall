@@ -1,49 +1,38 @@
+
+
+<script setup lang="ts">
+import { ref, defineProps, computed, watch } from 'vue'
+import $store from '@/store/index.js'
+const lef = ref('0')
+const wid = ref('90px')
+const activeIndex = ref(1)
+const ttarget = computed(() => {
+  return $store.state.target
+})
+// let oorder = computed(() => {
+//   return $store.state.order
+// })
+watch(ttarget, (newValue) => { //直接监听
+  // console.log("ttarget改变了");
+  // console.log(newValue)
+  const { width, left } = newValue.getBoundingClientRect()
+  const { left: parentLeft } = newValue.parentNode.getBoundingClientRect()
+  lef.value = left - 18 - parentLeft + 'px';
+  wid.value = width + 28 + 'px'
+  activeIndex.value = $store.state.order
+})
+const props = defineProps({
+  order: Number,
+  target: String,
+})
+</script>
+
 <template>
-  <div id="tab-bar" :style="{'--left': lef, '--width':wid}">
+  <!-- 我他喵的完全可以用其他的方式来解决这个问题，这个问题就是一个垃圾 -->
+  <div id="tab-bar" :style="{ '--width': wid , '--left': lef}">
     <slot></slot>
   </div>
 </template>
-
-<script>
-import {defineComponent, ref, computed, watch} from 'vue'
-import $store from '@/store/index.js'
-
-export default defineComponent({
-  props: {
-    order: Number,
-    target: String,
-  },
-  setup({order, target}) {
-    // console.log($store.state.target)
-    const lef = ref('0')
-    const wid = ref('90px')
-    const activeIndex = ref(1)
-    const ttarget = computed(()=> {
-      return $store.state.target
-    })
-    let oorder = computed(()=> {
-      return $store.state.order
-    })
-    watch(ttarget, (newValue) => { //直接监听
-      // console.log("ttarget改变了");
-      // console.log(newValue)
-      const {width, left} = newValue.getBoundingClientRect()
-      const {left: parentLeft} = newValue.parentNode.getBoundingClientRect()
-      lef.value = left - 18 - parentLeft + 'px';
-      wid.value = width + 28 + 'px'
-      activeIndex.value = $store.state.order
-    });
-    watch(oorder,(newValue)=> {
-      // console.log(newValue)
-    })
-    return {
-      lef,
-      wid,
-      activeIndex
-    }
-  }
-})
-</script>
 
 <style scoped>
 #tab-bar {
@@ -55,7 +44,7 @@ export default defineComponent({
   left: 0;
   bottom: 0;
   right: 0;
-  box-shadow: 0 -1px 1px rgba(100, 100, 100, .2);
+  box-shadow: 0 -1px 1px rgba(100, 100, 100, 0.2);
   z-index: 9;
   border-radius: 25px;
   border: 4px solid #f6f6f6;
@@ -65,7 +54,7 @@ export default defineComponent({
 }
 #tab-bar::before {
   position: absolute;
-  content: '';
+  content: "";
   height: 100%;
   width: var(--width);
   background-color: #598bf0;

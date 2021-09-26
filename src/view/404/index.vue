@@ -2,12 +2,8 @@
   <div>404</div>
 </template>
 
-<script>
-import {defineComponent} from 'vue'
-
-export default defineComponent({
-  name: ""
-})
+<script setup>
+// import {} from 'vue'
 </script>
 
 <style scoped>

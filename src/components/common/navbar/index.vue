@@ -1,3 +1,19 @@
+<script setup lang="ts">
+import { defineProps, computed} from 'vue'
+
+const props = defineProps({
+  bgColor: {
+    type: String,
+    default: '#ff8198'
+  },
+})
+const commonStyle = computed(() =>  {
+  return {
+    backgroundColor: props.bgColor
+  }
+})
+</script>
+
 <template>
   <div id="nav-bar" :style="commonStyle">
     <div class="left">
@@ -12,35 +28,13 @@
   </div>
 </template>
 
-<script>
-import {defineComponent, computed} from 'vue'
-
-
-export default defineComponent({
-  name: "",
-  props: {
-    bgColor: {
-      type: String,
-      default: '#ff8198'
-    }
-  },
-  setup(props) {
-    const commonStyle = computed(() => {
-      return {backgroundColor: props.bgColor}
-    })
-    return {
-      commonStyle
-    }
-  }
-})
-</script>
 
 <style type="less" scoped>
 #nav-bar {
   display: flex;
   height: 44px;
   line-height: 44px;
-  //background-color: #ff8198;
+  /* background-color: #ff8198; */
 }
 
 .left, .right {
@@ -54,6 +48,5 @@ export default defineComponent({
   color: #2a3a4a;
   text-align: center;
 }
-
 
 </style>
