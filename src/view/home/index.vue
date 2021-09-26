@@ -11,6 +11,7 @@
     <!--    <div>{{bannerList}}</div>-->
     <homerecommend :recomend-list="recomendList"></homerecommend>
     <homefeature></homefeature>
+    <tabcontrol :tabList="['流行', '新款', '精选']"></tabcontrol>
   </div>
 </template>
 
@@ -20,6 +21,7 @@ import { getHomeMuiltidata, getHomeGoods } from '/network/home/home'
 
 // 引入vuex
 import NavBar from '/components/common/navbar/index.vue'
+import tabcontrol from '/components/content/tabcontrol/index.vue'
 import homeswiper from "./homecomps/homeswiper.vue";
 import homerecommend from "./homecomps/homerecommend.vue";
 import homefeature from "./homecomps/homefeature.vue";
