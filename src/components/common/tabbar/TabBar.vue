@@ -14,7 +14,7 @@ watch(ttarget, (newValue) => { //直接监听
   // console.log("ttarget改变了");
   // console.log(newValue)
   const { width, left } = newValue.getBoundingClientRect()
-  const { left: parentLeft } = newValue.parentNode.getBoundingClientRect()
+  const { left: parentLeft } = newValue.parentNode && newValue.parentNode.getBoundingClientRect()
   lef.value = left - 18 - parentLeft + 'px';
   wid.value = width + 28 + 'px'
   activeIndex.value = $store.state.order

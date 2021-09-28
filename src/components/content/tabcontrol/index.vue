@@ -7,14 +7,17 @@
 </template>
 
 <script setup>
-  import { defineProps, ref } from 'vue'
+  import { defineProps, defineEmits ,ref } from 'vue'
   import $store from '@/store/index.js'
 
   const currentIndex = ref(0)
+
   defineProps({
     tabList: {type: Array, required: true,}
-   
   })
+
+  // const emit = defineEmits(['tabCtrl_change'])
+
   const changeTab = (index) => {
     // console.log(index)
     let tempType = ''
@@ -30,8 +33,10 @@
         tempType = 'sell'
         break
     }
+    // emit('tabCtrl_change', tempType)
     $store.commit('goodCurrentTypeChange', tempType)
   }
+
 </script>
 
 <style scoped>

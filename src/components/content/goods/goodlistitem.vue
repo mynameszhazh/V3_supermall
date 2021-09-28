@@ -1,7 +1,7 @@
 
 <template>
   <div class="goodlistitem">
-    <img :src="itemGood.show.img" alt />
+    <img :src="itemGood.show.img" @load="goodlistLoad"/>
     <p>{{ itemGood.title }}</p>
     <span class="pice">{{ itemGood.price }}</span>
     <span class="collect">{{ itemGood.cfav }}</span>
@@ -9,13 +9,21 @@
 </template>
 
 <script setup>
-import { defineProps } from 'vue'
+import { defineProps ,onMounted} from 'vue'
+import emitter from '@/utils/eventbus';
 const props = defineProps({
   itemGood: {
     type: Object,
     required: true
   }
 })
+
+// debounce
+const goodlistLoad = () => {
+  // console.log(1)
+  emitter.emit('goodlistimgLoad')
+}
+
 </script>
 
 <style scoped>
