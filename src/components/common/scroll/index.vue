@@ -7,7 +7,7 @@
 </template>
 
 <script setup>
-import { defineProps, ref, onMounted, reactive, defineEmits } from 'vue'
+import { defineProps, ref, onMounted, defineEmits, defineExpose } from 'vue'
 
 
 import BetterScroll from 'better-scroll'
@@ -65,7 +65,7 @@ const finishPullUp = () => {
 const getScrollY = () => {
   return BS.value ? BS.value.y : 0
 }
-expose({
+defineExpose({
   refresh,
   scrollTo,
   finishPullUp,
