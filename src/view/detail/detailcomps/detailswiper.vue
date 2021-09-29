@@ -1,10 +1,8 @@
 <template>
   <div class="homeswiper">
-    <swiper  :delay="30000" :loop="false" :autoplay="false">
+    <swiper :delay="30000" :loop="false" :autoplay="false">
       <swiper-item v-for="(item, index) in imgList" :key="index">
-        <a :href="item.link">
-          <img :src="item.image" alt />
-        </a>
+        <img :src="item" alt />
       </swiper-item>
     </swiper>
   </div>
@@ -26,11 +24,11 @@ defineProps({
 </script>
 
 <style scoped>
- a {
-  width: 100%;
+.homeswiper {
+   height: 350px;
+   overflow: hidden;
 }
-
-a img {
+img {
   width: 100%;
 }
 </style>

@@ -1,22 +1,20 @@
 <script setup lang="ts">
-import {onMounted, defineProps, watch, ref, PropType ,getCurrentInstance } from 'vue'
+import {onMounted, defineProps } from 'vue'
 import Swiper from '/assets/js/swiper.js'
 
-const { proxy } = getCurrentInstance()
-
 // 这里没有经过一个抽取的操作，因为这个@别名用起来老是报错
-type imgListType = {
-  image: string;
-  link: string;
-}
+// type imgListType = {
+//   image: string;
+//   link: string;
+// }
 const props = defineProps({
-  imgList: {
-    type: Array as PropType<imgListType[]>,
-    required: true,
-    default() {
-      return []
-    }
-  },
+  // imgList: {
+  //   type: Array as PropType<imgListType[]>,
+  //   required: true,
+  //   default() {
+  //     return []
+  //   }
+  // },
   loop: {
     type: Boolean,
     required: false,
@@ -62,11 +60,7 @@ onMounted(() => {
 <template>
   <div class="swiper-container">
     <div class="swiper-wrapper">
-      <div class="swiper-slide" v-for="(item, index) in imgList" :key="index">
-        <a :href="item.link">
-          <img :src="item.image" alt="">
-        </a>
-      </div>
+      <slot></slot>
     </div>
     <!-- swiper轮播图圆点 -->
     <div class="swiper-pagination"></div>
@@ -81,33 +75,6 @@ onMounted(() => {
   position: relative;
 }
 
-.swiper-slide {
-  width: 100%;
-  text-align: center;
-  font-size: 18px;
-  background: #fff;
 
-  /* Center slide text vertically */
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  -webkit-justify-content: center;
-  justify-content: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  -webkit-align-items: center;
-  align-items: center;
-}
-
-.swiper-slide a {
-  width: 100%;
-}
-
-.swiper-slide a img {
-  width: 100%;
-}
 
 </style>
