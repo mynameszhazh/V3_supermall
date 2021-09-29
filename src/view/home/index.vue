@@ -6,26 +6,29 @@
         <div class="title">首页</div>
       </template>
     </nav-bar>
-    <scroll class="content" :probe-type='3' ref="home_scroll" :pull-up-load='true' @pullingup='pullingup'>
+    <scroll
+      class="content"
+      :probe-type="3"
+      ref="home_scroll"
+      :pull-up-load="true"
+      @pullingup="pullingup"
+      @content-scroll-change='contentScrollChanges'
+    >
       <!--    轮播图-->
       <homeswiper :imgList="bannerList"></homeswiper>
       <!--    <div>{{bannerList}}</div>-->
       <homerecommend :recomend-list="recomendList"></homerecommend>
       <homefeature></homefeature>
       <tabcontrol :tabList="['流行', '新款', '精选']"></tabcontrol>
-      <goodlist :currentGoods='currentGoods'></goodlist>
+      <goodlist :currentGoods="currentGoods"></goodlist>
     </scroll>
+    <backtop v-show='isshow' @click.native="backclick(home_scroll)"></backtop>
   </div>
 </template>
 
 <script setup>
-import { ref, reactive, computed, onMounted, watch } from 'vue'
-import { getHomeMuiltidata, getHomeGoods } from '/network/home/home'
-
-
-import $store from '@/store/index.js'
-
 // 引入vuex
+import backtop from '@/components/common/backtop/index.vue'
 import NavBar from '/components/common/navbar/index.vue'
 import tabcontrol from '/components/content/tabcontrol/index.vue'
 import goodlist from '/components/content/goods/goodlist.vue'
@@ -34,6 +37,17 @@ import homeswiper from "./homecomps/homeswiper.vue";
 import homerecommend from "./homecomps/homerecommend.vue";
 import homefeature from "./homecomps/homefeature.vue";
 
+import { ref, reactive, computed, onMounted, watch } from 'vue'
+import { getHomeMuiltidata, getHomeGoods } from '/network/home/home'
+import { debounces  } from '@/utils/debounce'
+// import { stoThrottle  } from '@/utils/throttle'
+import { backTopMixin } from '@/common/backtopMixin.js'
+
+import emitter from '@/utils/eventbus';
+import $store from '@/store/index.js'
+
+const { isshow, backclick, backTopScr} = backTopMixin()
+
 const bannerList = ref([])
 const recomendList = ref([])
 const home_scroll = ref(null)
@@ -41,14 +55,13 @@ const goodList = reactive({
   pop: { page: 0, list: [] },
   new: { page: 0, list: [] },
   sell: { page: 0, list: [] }
-},)
+})
 
 
 // 当前点击的商品类型
 const currentGoods = computed(() => {
   return goodList[$store.state.goodCurrentType]
 })
-
 
 // 获取营销商的数据
 const getHomeMuiltidatas = async () => {
@@ -63,15 +76,20 @@ const getHomeGoodsFn = async (type) => {
   // console.log(data)
   goodList[type].list.push(...data.list)
   goodList[type].page += 1
-} 
+}
 
 // 下拉触发多次
-const pullingup = ()=> {
+const pullingup = () => {
   // console.log($store.state.goodCurrentType)
   getHomeGoodsFn($store.state.goodCurrentType)
   // home_scroll.finishPullUp()
 }
 
+const contentScrollChanges = (option) => {
+  backTopScr(option)
+}
+
+// 加载数据
 getHomeMuiltidatas()
 getHomeGoodsFn('pop')
 getHomeGoodsFn('new')
@@ -79,7 +97,11 @@ getHomeGoodsFn('sell')
 
 // mounted生命周期的使用
 onMounted(() => {
-  // console.log(home_scroll)
+  const refreshs = debounces(home_scroll.value.refresh, 50)
+  // 因为外部不能使用ref的原因 这里产生了不可避免的耦合性
+  emitter.on('goodlistimgLoad', () => {
+    refreshs()
+  })
 })
 
 

@@ -1,6 +1,6 @@
 
 <template>
-  <div class="goodlistitem">
+  <div class="goodlistitem" @click="detailShow">
     <img :src="itemGood.show.img" @load="goodlistLoad"/>
     <p>{{ itemGood.title }}</p>
     <span class="pice">{{ itemGood.price }}</span>
@@ -10,6 +10,7 @@
 
 <script setup>
 import { defineProps ,onMounted} from 'vue'
+import { useRoute,useRouter } from 'vue-router'
 import emitter from '@/utils/eventbus';
 const props = defineProps({
   itemGood: {
@@ -18,10 +19,19 @@ const props = defineProps({
   }
 })
 
+const router = useRouter()
+
+onMounted(() => {
+  // console.log(props.itemGood.iid)
+})
 // debounce
 const goodlistLoad = () => {
   // console.log(1)
   emitter.emit('goodlistimgLoad')
+}
+
+const detailShow = () => {
+  router.push('/detail/'+ props.itemGood.iid)
 }
 
 </script>

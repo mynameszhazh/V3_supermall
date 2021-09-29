@@ -8,8 +8,7 @@
 
 <script setup>
 import { defineProps, ref, onMounted, reactive, defineEmits } from 'vue'
-import emitter from '@/utils/eventbus';
-import { debounces } from '@/utils/debounce'
+
 
 import BetterScroll from 'better-scroll'
 // dom 元素
@@ -24,9 +23,13 @@ const props = defineProps({
     default: false
   }
 })
-const emit = defineEmits(['pullingup'])
+
+// const {expose} = useContext()
+
+const emit = defineEmits(['pullingup', 'contentScrollChange'])
 
 const BS = ref(null)
+
 
 onMounted(() => {
   // console.log(betterScroll.value)
@@ -41,6 +44,7 @@ onMounted(() => {
   // console.log()
   BS.value.on('scroll', option => {
     // console.log(option)
+    emit('contentScrollChange', option)
   })
   BS.value.on('pullingUp', () => {
     emit('pullingup')
@@ -48,18 +52,27 @@ onMounted(() => {
   // BS.value.on('pullingDown', ()=> {
   //   refresh()
   // })
-  const refreshs = debounces(refresh, 50)
-  // 因为外部不能使用ref的原因 这里产生了不可避免的耦合性
-  emitter.on('goodlistimgLoad', () => {
-    refreshs()
-  })
 })
 const refresh = () => {
   BS.value && BS.value.refresh()
 }
-
-
+const scrollTo = (x, y, time) => {
+  BS.value && BS.value.scrollTo(x, y, time)
+}
+const finishPullUp = () => {
+  BS.value && BS.value.finishPullUp()
+}
+const getScrollY = () => {
+  return BS.value ? BS.value.y : 0
+}
+expose({
+  refresh,
+  scrollTo,
+  finishPullUp,
+  getScrollY
+})
 </script>
 
 <style lang='scss' scoped>
+
 </style>

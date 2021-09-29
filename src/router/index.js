@@ -4,6 +4,7 @@ import Home from '@/view/home/index.vue'
 import CateGory from '@/view/category/index.vue'
 import Profile from '@/view/profile/index.vue'
 import Cart from '@/view/cart/index.vue'
+import Detail from '@/view/detail/index.vue'
 
 // 2. Define some routes
 // Each route should map to a component.
@@ -17,6 +18,7 @@ const routes = [
   {path: '/category', component: CateGory},
   {path: '/cart', component: Cart},
   {path: '/profile', component: Profile},
+  {path: '/detail/:id', component: Detail},
 ]
 
 // 3. Create the router instance and pass the `routes` option
