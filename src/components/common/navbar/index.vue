@@ -2,14 +2,14 @@
 import { defineProps, computed} from 'vue'
 
 const props = defineProps({
-  bgColor: {
+  bgcolor: {
     type: String,
     default: '#ff8198'
   },
 })
 const commonStyle = computed(() =>  {
   return {
-    backgroundColor: props.bgColor
+    backgroundColor: props.bgcolor
   }
 })
 </script>
@@ -49,6 +49,13 @@ const commonStyle = computed(() =>  {
   font-size: 20px;
   color: #2a3a4a;
   text-align: center;
+}
+
+.center >>> .title {
+  display: flex;
+  color: white;
+  font-size: 16px;
+  justify-content: space-around;
 }
 
 </style>

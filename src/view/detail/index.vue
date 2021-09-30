@@ -1,11 +1,15 @@
 <template>
   <div class="detail">
-    <nav-bar bgcolor="#abcdef">
+    <nav-bar bgcolor="skyblue">
       <template v-slot:left>
-        <div class="back" @click="backHome"><span>back</span></div>
+        <div class="back" @click="backHome">
+          <span>back</span>
+        </div>
       </template>
       <template v-slot:center>
-        <div class="title">list</div>
+        <div class="title">
+          <span v-for="(item,index) in ['商品', '参数', '评论', '推荐']" :key="index">{{ item }}</span>
+        </div>
       </template>
     </nav-bar>
     <scroll
@@ -14,26 +18,66 @@
       ref="home_scroll2"
       :pull-up-load="true"
       @pullingup="pullingup"
-      @content-scroll-change='contentScrollChanges'
+      @content-scroll-change="contentScrollChanges"
     >
       <detailswiper :imgList="imgLists"></detailswiper>
-      <h1>detail</h1>
-      <div>
-      </div>
+      <detailinfo :goods="goodsInfo"></detailinfo>
+      <detailshopinfo :shop-info="shopInfo"></detailshopinfo>
+      <ul>
+        <li>123132132</li>
+        <li>123132132</li>
+        <li>123132132</li>
+        <li>123132132</li>
+        <li>123132132</li>
+        <li>123132132</li>
+        <li>123132132</li>
+        <li>123132132</li>
+        <li>123132132</li>
+        <li>123132132</li>
+        <li>123132132</li>
+        <li>123132132</li>
+        <li>123132132</li>
+        <li>123132132</li>
+        <li>123132132</li>
+        <li>123132132</li>
+        <li>123132132</li>
+        <li>123132132</li>
+        <li>123132132</li>
+        <li>123132132</li>
+        <li>123132132</li>
+        <li>123132132</li>
+        <li>123132132</li>
+        <li>123132132</li>
+        <li>123132132</li>
+        <li>123132132</li>
+        <li>123132132</li>
+        <li>123132132</li>
+        <li>123132132</li>
+        <li>123132132</li>
+        <li>123132132</li>
+        <li>123132132</li>
+        <li>123132132</li>
+        <li>123132132</li>
+        <li>123132132</li>
+        <li>123132132</li>
+      </ul>
     </scroll>
-    <backtop v-show='isshow' @click.native="backclick(home_scroll2)"></backtop>
+    <backtop v-show="isshow" @click.native="backclick(home_scroll2)"></backtop>
   </div>
 </template>
 
 <script setup>
 import backtop from '@/components/common/backtop/index.vue'
 import detailswiper from './detailcomps/detailswiper.vue'
+import detailinfo from './detailcomps/detailinfo.vue'
+import detailshopinfo from './detailcomps/detailshopinfo.vue'
 import NavBar from '/components/common/navbar/index.vue'
 import scroll from '/components/common/scroll/index.vue'
 
 import { ref, onMounted, defineProps, reactive } from 'vue'
 import { backTopMixin } from '@/common/backtopMixin.js'
-import { detailData, Goods } from '@/network/detail/detail.js'
+import { detailData } from '@/network/detail/detail.js'
+import { GoodsInfo, ShopInfo } from '@/utils/dataCollect/detail.js'
 import { useRoute, useRouter } from 'vue-router'
 
 const { isshow, backclick, backTopScr } = backTopMixin()
@@ -42,10 +86,15 @@ const router = useRouter()
 
 const home_scroll2 = ref(null)
 const imgLists = ref([])
+const goodsInfo = ref([])
+const shopInfo = ref([])
 
 const detailGetData = async () => {
   const data = await detailData(route.params.id)
+  console.log(data.result.shopInfo)
   imgLists.value = data.result.itemInfo.topImages
+  goodsInfo.value = new GoodsInfo(data.result.itemInfo, data.result.columns, data.result.shopInfo.services)
+  shopInfo.value = new ShopInfo(data.result.shopInfo)
 }
 const pullingup = () => {
   // console.log(1)
@@ -61,11 +110,19 @@ const contentScrollChanges = (options) => {
 
 detailGetData()
 
+onMounted(() => {
+  setTimeout(() => {
+    console.log(1)
+    home_scroll2.value.refresh()
+  }, 1000)
+})
+
 </script>
 
 <style scoped>
 .detail {
   height: 100vh;
+  background-color: #fff;
   position: relative;
 }
 .detail .content {

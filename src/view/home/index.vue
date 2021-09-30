@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <!--    导航栏-->
-    <nav-bar bgcolor="#abcdef">
+    <nav-bar bgcolor="#ff8198">
       <template v-slot:center>
         <div class="title">首页</div>
       </template>
