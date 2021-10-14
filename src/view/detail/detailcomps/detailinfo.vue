@@ -37,7 +37,7 @@ onMounted(() => {
 </script>
 
 <style lang='less' scoped>
-.detailinfo {
+.detailinfo { 
   margin-top: 10px;
   width: 100%;
   padding: 12px;

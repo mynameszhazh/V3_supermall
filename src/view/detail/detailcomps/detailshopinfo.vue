@@ -45,6 +45,7 @@ const props = defineProps({
   width: 100%;
   margin-top: 10px;
   background-color: #fff;
+  box-shadow: 1px 3px 0 rgba(0,0,0,.1);
   .title {
     display: flex;
     justify-content: flex-start;

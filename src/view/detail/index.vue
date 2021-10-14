@@ -23,44 +23,7 @@
       <detailswiper :imgList="imgLists"></detailswiper>
       <detailinfo :goods="goodsInfo"></detailinfo>
       <detailshopinfo :shop-info="shopInfo"></detailshopinfo>
-      <ul>
-        <li>123132132</li>
-        <li>123132132</li>
-        <li>123132132</li>
-        <li>123132132</li>
-        <li>123132132</li>
-        <li>123132132</li>
-        <li>123132132</li>
-        <li>123132132</li>
-        <li>123132132</li>
-        <li>123132132</li>
-        <li>123132132</li>
-        <li>123132132</li>
-        <li>123132132</li>
-        <li>123132132</li>
-        <li>123132132</li>
-        <li>123132132</li>
-        <li>123132132</li>
-        <li>123132132</li>
-        <li>123132132</li>
-        <li>123132132</li>
-        <li>123132132</li>
-        <li>123132132</li>
-        <li>123132132</li>
-        <li>123132132</li>
-        <li>123132132</li>
-        <li>123132132</li>
-        <li>123132132</li>
-        <li>123132132</li>
-        <li>123132132</li>
-        <li>123132132</li>
-        <li>123132132</li>
-        <li>123132132</li>
-        <li>123132132</li>
-        <li>123132132</li>
-        <li>123132132</li>
-        <li>123132132</li>
-      </ul>
+      <detailimginfo :detail-info="detailInfo"></detailimginfo>
     </scroll>
     <backtop v-show="isshow" @click.native="backclick(home_scroll2)"></backtop>
   </div>
@@ -70,6 +33,7 @@
 import backtop from '@/components/common/backtop/index.vue'
 import detailswiper from './detailcomps/detailswiper.vue'
 import detailinfo from './detailcomps/detailinfo.vue'
+import detailimginfo from './detailcomps/detailimginfo.vue'
 import detailshopinfo from './detailcomps/detailshopinfo.vue'
 import NavBar from '/components/common/navbar/index.vue'
 import scroll from '/components/common/scroll/index.vue'
@@ -88,11 +52,13 @@ const home_scroll2 = ref(null)
 const imgLists = ref([])
 const goodsInfo = ref([])
 const shopInfo = ref([])
+const detailInfo = ref([])
 
 const detailGetData = async () => {
   const data = await detailData(route.params.id)
-  console.log(data.result.shopInfo)
+  console.log(data.result.detailInfo)
   imgLists.value = data.result.itemInfo.topImages
+  detailInfo.value = data.result.detailInfo
   goodsInfo.value = new GoodsInfo(data.result.itemInfo, data.result.columns, data.result.shopInfo.services)
   shopInfo.value = new ShopInfo(data.result.shopInfo)
 }
