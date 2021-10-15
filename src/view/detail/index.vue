@@ -25,6 +25,7 @@
       <detailshopinfo :shop-info="shopInfo"></detailshopinfo>
       <detailimginfo :detail-info="detailInfo"></detailimginfo>
       <detailparamsinfo :params-info="paramsInfo"></detailparamsinfo>
+      <detailcomment :comment-info="commentInfo"></detailcomment>
     </scroll>
     <backtop v-show="isshow" @click.native="backclick(home_scroll2)"></backtop>
   </div>
@@ -37,6 +38,7 @@ import detailinfo from './detailcomps/detailinfo.vue'
 import detailimginfo from './detailcomps/detailimginfo.vue'
 import detailshopinfo from './detailcomps/detailshopinfo.vue'
 import detailparamsinfo from './detailcomps/detailparamsinfo.vue'
+import detailcomment from './detailcomps/detailcomment.vue'
 import NavBar from '/components/common/navbar/index.vue'
 import scroll from '/components/common/scroll/index.vue'
 
@@ -60,12 +62,14 @@ const goodsInfo = ref([])
 const shopInfo = ref([])
 const detailInfo = ref([])
 const paramsInfo = ref([])
+const commentInfo = ref([])
 
 const detailGetData = async () => {
   const data = await detailData(route.params.id)
-  console.log(data.result.itemParams)
+  console.log(data.result.rate)
   imgLists.value = data.result.itemInfo.topImages
   detailInfo.value = data.result.detailInfo
+  commentInfo.value = data.result.rate
   paramsInfo.value = data.result.itemParams
   goodsInfo.value = new GoodsInfo(data.result.itemInfo, data.result.columns, data.result.shopInfo.services)
   shopInfo.value = new ShopInfo(data.result.shopInfo)
