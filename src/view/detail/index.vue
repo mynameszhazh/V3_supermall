@@ -47,6 +47,10 @@ import { GoodsInfo, ShopInfo } from '@/utils/dataCollect/detail.js'
 import { useRoute, useRouter } from 'vue-router'
 
 const { isshow, backclick, backTopScr } = backTopMixin()
+
+import emitter from '@/utils/eventbus'
+import { debounces  } from '@/utils/debounce'
+
 const route = useRoute()
 const router = useRouter()
 
@@ -81,10 +85,14 @@ const contentScrollChanges = (options) => {
 detailGetData()
 
 onMounted(() => {
-  setTimeout(() => {
-    console.log(1)
-    home_scroll2.value.refresh()
-  }, 1000)
+  const refreshs = debounces(home_scroll2.value.refresh, 50)
+  emitter.on('detailimgLoad', () => {
+    refreshs()
+  })
+  // setTimeout(() => {
+  //   // console.log(1)
+  //   home_scroll2.value.refresh()
+  // }, 1000)
 })
 
 </script>

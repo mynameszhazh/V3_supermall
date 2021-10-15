@@ -8,7 +8,7 @@
       <div class="cont-item" v-for="(item, index) in detailInfo.detailImage" :key="index">
         <p>{{ item.key }}</p>
         <div class="list">
-          <img :src="url" alt="" v-for="(url, index) in item.list" :key="index">
+          <img :src="url" alt="" v-for="(url, index) in item.list" :key="index"  @load="detailimgLoad">
         </div>
       </div>
     </div>
@@ -17,6 +17,7 @@
 
 <script setup>
 import {defineProps} from 'vue'
+import emitter from '@/utils/eventbus'
 
 const props = defineProps({
   detailInfo: {
@@ -24,6 +25,13 @@ const props = defineProps({
     required: true
   }
 })
+
+// debounce
+const detailimgLoad = () => {
+  // console.log(1)
+  emitter.emit('detailimgLoad')
+}
+
 </script>
 
 <style lang='less' scoped>
