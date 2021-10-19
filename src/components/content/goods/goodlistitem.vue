@@ -1,7 +1,7 @@
 
 <template>
   <div class="goodlistitem" @click="detailShow">
-    <img :src="itemGood.show.img" @load="goodlistLoad"/>
+    <img :src="itemGood.show ? itemGood.show.img : itemGood.image" @load="goodlistLoad"/>
     <p>{{ itemGood.title }}</p>
     <span class="pice">{{ itemGood.price }}</span>
     <span class="collect">{{ itemGood.cfav }}</span>
@@ -22,7 +22,7 @@ const props = defineProps({
 const router = useRouter()
 
 onMounted(() => {
-  // console.log(props.itemGood.iid)
+  // console.log(props.itemGood)
 })
 // debounce
 const goodlistLoad = () => {

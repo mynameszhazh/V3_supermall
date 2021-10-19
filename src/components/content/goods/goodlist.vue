@@ -15,7 +15,7 @@
     }
   })
   onMounted(()=> {
-    // console.log(props.currentGoods.list)
+    // console.log(props.currentGoods)
   })
 
 </script>

@@ -26,6 +26,7 @@
       <detailimginfo :detail-info="detailInfo"></detailimginfo>
       <detailparamsinfo :params-info="paramsInfo"></detailparamsinfo>
       <detailcomment :comment-info="commentInfo"></detailcomment>
+      <goodlist :currentGoods="reCommendInfo"></goodlist>
     </scroll>
     <backtop v-show="isshow" @click.native="backclick(home_scroll2)"></backtop>
   </div>
@@ -41,17 +42,18 @@ import detailparamsinfo from './detailcomps/detailparamsinfo.vue'
 import detailcomment from './detailcomps/detailcomment.vue'
 import NavBar from '/components/common/navbar/index.vue'
 import scroll from '/components/common/scroll/index.vue'
+import goodlist from '@/components/content/goods/goodlist.vue'
 
 import { ref, onMounted, defineProps, reactive } from 'vue'
 import { backTopMixin } from '@/common/backtopMixin.js'
-import { detailData } from '@/network/detail/detail.js'
+import { detailData, getRecommend } from '@/network/detail/detail.js'
 import { GoodsInfo, ShopInfo } from '@/utils/dataCollect/detail.js'
 import { useRoute, useRouter } from 'vue-router'
 
 const { isshow, backclick, backTopScr } = backTopMixin()
 
 import emitter from '@/utils/eventbus'
-import { debounces  } from '@/utils/debounce'
+import { debounces } from '@/utils/debounce'
 
 const route = useRoute()
 const router = useRouter()
@@ -63,10 +65,13 @@ const shopInfo = ref([])
 const detailInfo = ref([])
 const paramsInfo = ref([])
 const commentInfo = ref([])
+let reCommendInfo = reactive({
+  list: []
+})
 
 const detailGetData = async () => {
   const data = await detailData(route.params.id)
-  console.log(data.result.rate)
+  // console.log(data.result.rate)
   imgLists.value = data.result.itemInfo.topImages
   detailInfo.value = data.result.detailInfo
   commentInfo.value = data.result.rate
@@ -74,6 +79,14 @@ const detailGetData = async () => {
   goodsInfo.value = new GoodsInfo(data.result.itemInfo, data.result.columns, data.result.shopInfo.services)
   shopInfo.value = new ShopInfo(data.result.shopInfo)
 }
+
+const reCommendData = async () => {
+  const data = await getRecommend()
+  // console.log(data.data)
+  // 这里只需要数组就可以了
+  reCommendInfo.list = data.data.list
+}
+
 const pullingup = () => {
   // console.log(1)
 }
@@ -86,17 +99,21 @@ const contentScrollChanges = (options) => {
   // console.log(options)
 }
 
+// 获取详情页数据
 detailGetData()
+// 获取推荐数据
+reCommendData()
 
 onMounted(() => {
   const refreshs = debounces(home_scroll2.value.refresh, 50)
+  const refreshs2 = debounces(home_scroll2.value.refresh, 50)
   emitter.on('detailimgLoad', () => {
     refreshs()
   })
-  // setTimeout(() => {
-  //   // console.log(1)
-  //   home_scroll2.value.refresh()
-  // }, 1000)
+  // 因为外部不能使用ref的原因 这里产生了不可避免的耦合性
+  emitter.on('goodlistimgLoad', () => {
+    refreshs2()
+  })
 })
 
 </script>

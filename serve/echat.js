@@ -15,8 +15,7 @@ function handle(req, res) {
         res.end(data)
       }
     })
-  } else {
-    res.end('err')
+  } else if(req.url === '/shaoyang'){
   }
 }
-app.listen(5001)
+app.listen(8888)
