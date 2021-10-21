@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>事件代理</title>
+</head>
+<body>
+  <div class="list">
+    <ul>
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+      <li class="item">4</li>
+      <li>5</li>
+      <li>6</li>
+      <li>7</li>
+      <li>8</li>
+      <li>9</li>
+      <li>10</li>
+      <li>11</li>
+      <li>12</li>
+      <li>13</li>
+      <li>14</li>
+      <li>15</li>
+    </ul>
+  </div>
+</body>
+<script>
+  const list = document.querySelector('.list')
+  list.querySelector('ul').addEventListener('click',(e) => {
+    const t = e.target
+    if(t.classList.contains('item')) {
+      // 用于原生的一些操作使用的东西
+      console.log(['item'].contains('item'))
+    } else {
+      console.log('other')
+    }
+  })
+
+  let a = 6;
+  const obj = {
+    a: 5,
+    b: 2,
+    c: [
+      1,
+      a,
+      function() {
+        console.log(this)
+        document.write(this[1])
+      }
+    ]
+  }
+  obj.c[2]()
+</script>
+</html>
