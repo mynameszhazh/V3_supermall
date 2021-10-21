@@ -12,7 +12,7 @@
       ref="home_scroll"
       :pull-up-load="true"
       @pullingup="pullingup"
-      @content-scroll-change='contentScrollChanges'
+      @content-scroll-change="contentScrollChanges"
     >
       <!--    轮播图-->
       <homeswiper :imgList="bannerList"></homeswiper>
@@ -22,7 +22,7 @@
       <tabcontrol :tabList="['流行', '新款', '精选']"></tabcontrol>
       <goodlist :currentGoods="currentGoods"></goodlist>
     </scroll>
-    <backtop v-show='isshow' @click.native="backclick(home_scroll)"></backtop>
+    <backtop v-show="isshow" @click.native="backclick(home_scroll)"></backtop>
   </div>
 </template>
 
@@ -37,18 +37,19 @@ import homeswiper from "./homecomps/homeswiper.vue";
 import homerecommend from "./homecomps/homerecommend.vue";
 import homefeature from "./homecomps/homefeature.vue";
 
-import { ref, reactive, computed, onMounted, watch } from 'vue'
+import { ref, reactive, computed, onMounted, onActivated, onDeactivated, watch } from 'vue'
 import { getHomeMuiltidata, getHomeGoods } from '/network/home/home'
-import { debounces  } from '@/utils/debounce'
+import { debounces } from '@/utils/debounce'
 // import { stoThrottle  } from '@/utils/throttle'
 import { backTopMixin } from '@/common/backtopMixin.js'
 
 import emitter from '@/utils/eventbus';
 import $store from '@/store/index.js'
 
-const { isshow, backclick, backTopScr} = backTopMixin()
+const { isshow, backclick, backTopScr } = backTopMixin()
 
 const bannerList = ref([])
+const saveY = ref(0)
 const recomendList = ref([])
 const home_scroll = ref(null)
 const goodList = reactive({
@@ -102,6 +103,17 @@ onMounted(() => {
   emitter.on('goodlistimgLoad', () => {
     refreshs()
   })
+})
+
+// keep-alive 出现了两个生命钩子函数
+onActivated(() => {
+  // console.log('-activated-')
+  home_scroll.value.scrollTo(0, saveY.value, 0)
+  home_scroll.value.refresh()
+})
+onDeactivated(() => {
+  // console.log('-deactivated-')
+  saveY.value = home_scroll.value.getScrollY()
 })
 
 

@@ -8,7 +8,14 @@ import MainTabBar from "./components/content/MainTabBar.vue";
 </script>
 
 <template>
-<!--  <img alt="Vue logo" src="@/assets/logo.png"/>-->
+  <!-- 问题保留，这里使用keep-alive 不能排除我不想要缓存的route 这样，真的是有点那个了 -->
+  <!-- <router-view v-slot="{ Component }">
+    <transition name="router-fade" mode="out-in">
+      <keep-alive>
+        <component :is="Component" />
+      </keep-alive>
+    </transition>
+  </router-view> -->
   <router-view></router-view>
   <main-tab-bar></main-tab-bar>
 </template>

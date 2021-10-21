@@ -24,9 +24,9 @@
       <detailinfo :goods="goodsInfo"></detailinfo>
       <detailshopinfo :shop-info="shopInfo"></detailshopinfo>
       <detailimginfo :detail-info="detailInfo"></detailimginfo>
-      <detailparamsinfo :params-info="paramsInfo"></detailparamsinfo>
-      <detailcomment :comment-info="commentInfo"></detailcomment>
-      <goodlist :currentGoods="reCommendInfo"></goodlist>
+      <detailparamsinfo :params-info="paramsInfo" ref="params"></detailparamsinfo>
+      <detailcomment :comment-info="commentInfo" ref="comment"></detailcomment>
+      <goodlist :currentGoods="reCommendInfo" ref="recommend"></goodlist>
     </scroll>
     <backtop v-show="isshow" @click.native="backclick(home_scroll2)"></backtop>
   </div>
