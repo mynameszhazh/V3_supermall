@@ -96,7 +96,7 @@ const backHome = () => {
 }
 
 const contentScrollChanges = (options) => {
-  // console.log(options)
+  backTopScr(options)
 }
 
 // 获取详情页数据
