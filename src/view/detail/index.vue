@@ -1,17 +1,7 @@
 <template>
   <div class="detail">
-    <nav-bar bgcolor="skyblue">
-      <template v-slot:left>
-        <div class="back" @click="backHome">
-          <span>back</span>
-        </div>
-      </template>
-      <template v-slot:center>
-        <div class="title">
-          <span v-for="(item,index) in ['商品', '参数', '评论', '推荐']" :key="index">{{ item }}</span>
-        </div>
-      </template>
-    </nav-bar>
+    
+    <detailnavbar></detailnavbar>
     <scroll
       class="content"
       :probe-type="3"
@@ -40,7 +30,7 @@ import detailimginfo from './detailcomps/detailimginfo.vue'
 import detailshopinfo from './detailcomps/detailshopinfo.vue'
 import detailparamsinfo from './detailcomps/detailparamsinfo.vue'
 import detailcomment from './detailcomps/detailcomment.vue'
-import NavBar from '/components/common/navbar/index.vue'
+import detailnavbar from './detailcomps/detailnavbar.vue'
 import scroll from '/components/common/scroll/index.vue'
 import goodlist from '@/components/content/goods/goodlist.vue'
 
@@ -89,10 +79,6 @@ const reCommendData = async () => {
 
 const pullingup = () => {
   // console.log(1)
-}
-
-const backHome = () => {
-  router.go(-1)
 }
 
 const contentScrollChanges = (options) => {
