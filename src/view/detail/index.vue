@@ -98,11 +98,10 @@ const shopcarclicks = () => {
   pruduct.price = itemInfoCar.value.lowNowPrice
   pruduct.dec = itemInfoCar.value.desc
   pruduct.iid = route.params.id
-  console.log(itemInfoCar.value)
   pruduct.images = imgLists.value[0]
 
   $store.dispatch('addCart', pruduct).then(res => {
-    console.log(res)
+    // console.log(res)
   })
 }
 
