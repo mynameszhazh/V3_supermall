@@ -3,7 +3,7 @@
     <div class="service">客服</div>
     <div class="shop">商铺</div>
     <div class="Collection">收藏</div>
-    <div class="shopcar" @click="shopcarclick">购物车</div>
+    <div class="shopcar" @click="shopcarclick">加入购物车</div>
     <div class="submit">购买</div>
   </div>
 </template>
@@ -30,6 +30,7 @@ const shopcarclick = () => {
   line-height: 49px;
   position: fixed;
   bottom: 0;
+  font-size: 18px;
   z-index: 999;
 }
 .shop,
@@ -40,6 +41,7 @@ const shopcarclick = () => {
   flex: 1;
 }
 .shopcar {
+  flex: 2;
   background-color: yellow;
 }
 .submit {

@@ -1,30 +1,28 @@
 // 引入
 import { createStore } from "vuex";
 
+import carts from "./modules/carts";
+
 const store = createStore({
   // 声明变量
   state() {
-    return  {
+    return {
       order: 0,
       target: null,
-      goodCurrentType: 'pop'
-    }
+      goodCurrentType: "pop",
+    };
   },
   mutations: {
-    itemclickchange(state){
-      // console.log(state.target)
-    },
+    itemclickchange(state) {},
     goodCurrentTypeChange(state, payload) {
-      state.goodCurrentType = payload
-    }
+      state.goodCurrentType = payload;
+    },
   },
   // mutations的值由actions传入
-  actions: {
-    // setName(context, value){
-    //   context.commit('getname',value)
-    // },
+  actions: {},
+  modules: {
+    carts,
   },
-  modules: {},
 });
 
-export default store
+export default store;

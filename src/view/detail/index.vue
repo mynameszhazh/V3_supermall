@@ -37,6 +37,7 @@ import goodlist from '@/components/content/goods/goodlist.vue'
 
 import { ref, onMounted, defineProps, reactive } from 'vue'
 import { backTopMixin } from '@/common/backtopMixin.js'
+import $store from '@/store/index.js'
 import { detailData, getRecommend } from '@/network/detail/detail.js'
 import { GoodsInfo, ShopInfo } from '@/utils/dataCollect/detail.js'
 import { useRoute, useRouter } from 'vue-router'
@@ -65,6 +66,7 @@ const shopInfo = ref([])
 const detailInfo = ref([])
 const paramsInfo = ref([])
 const commentInfo = ref([])
+const itemInfoCar = ref({})
 let reCommendInfo = reactive({
   list: []
 })
@@ -74,6 +76,7 @@ const detailGetData = async () => {
   // console.log(data.result.rate)
   imgLists.value = data.result.itemInfo.topImages
   detailInfo.value = data.result.detailInfo
+  itemInfoCar.value = data.result.itemInfo
   commentInfo.value = data.result.rate
   paramsInfo.value = data.result.itemParams
   goodsInfo.value = new GoodsInfo(data.result.itemInfo, data.result.columns, data.result.shopInfo.services)
@@ -89,7 +92,18 @@ const reCommendData = async () => {
 
 // 点击购物车
 const shopcarclicks = () => {
-  console.log('点击了购物车')
+  // console.log('点击了购物车')
+  const pruduct = {}
+  pruduct.title = itemInfoCar.value.title
+  pruduct.price = itemInfoCar.value.lowNowPrice
+  pruduct.dec = itemInfoCar.value.desc
+  pruduct.iid = route.params.id
+  console.log(itemInfoCar.value)
+  pruduct.images = imgLists.value[0]
+
+  $store.dispatch('addCart', pruduct).then(res => {
+    console.log(res)
+  })
 }
 
 const pullingup = () => {
