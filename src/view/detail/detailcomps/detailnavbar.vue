@@ -21,7 +21,7 @@
 </template>
 
 <script setup>
-import { defineProps, onMounted, ref } from 'vue'
+import { defineProps, onMounted, ref, defineEmits, defineExpose } from 'vue'
 import { useRouter } from 'vue-router'
 
 import NavBar from '/components/common/navbar/index.vue'
@@ -30,6 +30,7 @@ const router = useRouter()
 const titles = ref(['商品', '参数', '评论', '推荐'])
 const currentIndex = ref(0)
 
+const emit = defineEmits(['indexParams'])
 
 const props = defineProps({
   goods: {
@@ -47,7 +48,12 @@ const backHome = () => {
 
 const detailnavclick = (index) => {
   currentIndex.value = index
+  emit('indexParams', index)
 }
+
+defineExpose({
+  currentIndex
+})
 </script>
 
 <style lang='less' scoped>
