@@ -74,5 +74,7 @@ defineExpose({
 </script>
 
 <style lang='scss' scoped>
-
+.wrapper {
+  overflow: hidden;
+}
 </style>

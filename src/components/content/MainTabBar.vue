@@ -1,11 +1,11 @@
 <template>
-  <tab-bar :order="order" :target="target">
-    <tab-bar-item path="/home" :order="1" activeColor='skyblue'>
+  <tab-bar :order="order" v-if="isDetail">
+    <tab-bar-item path="/home" :order="1" activeColor="skyblue">
       <template v-slot:item-icon>
-        <img src="@/assets/images/tabbar/home.svg" alt="">
+        <img src="@/assets/images/tabbar/home.svg" alt />
       </template>
       <template v-slot:item-icon-active>
-        <img slot="item-icon-active" src="@/assets/images/tabbar/home_active.svg" alt="">
+        <img slot="item-icon-active" src="@/assets/images/tabbar/home_active.svg" alt />
       </template>
       <template v-slot:item-text>
         <span slot="item-text">首页</span>
@@ -13,10 +13,10 @@
     </tab-bar-item>
     <tab-bar-item path="/category" :order="2">
       <template v-slot:item-icon>
-        <img src="@/assets/images/tabbar/category.svg" alt="">
+        <img src="@/assets/images/tabbar/category.svg" alt />
       </template>
       <template v-slot:item-icon-active>
-        <img slot="item-icon-active" src="@/assets/images/tabbar/category_active.svg" alt="">
+        <img slot="item-icon-active" src="@/assets/images/tabbar/category_active.svg" alt />
       </template>
       <template v-slot:item-text>
         <span slot="item-text">分类</span>
@@ -24,10 +24,10 @@
     </tab-bar-item>
     <tab-bar-item path="/cart" :order="3">
       <template v-slot:item-icon>
-        <img src="@/assets/images/tabbar/shopcart.svg" alt="">
+        <img src="@/assets/images/tabbar/shopcart.svg" alt />
       </template>
       <template v-slot:item-icon-active>
-        <img slot="item-icon-active" src="@/assets/images/tabbar/shopcart_active.svg" alt="">
+        <img slot="item-icon-active" src="@/assets/images/tabbar/shopcart_active.svg" alt />
       </template>
       <template v-slot:item-text>
         <span slot="item-text">购物车</span>
@@ -35,44 +35,32 @@
     </tab-bar-item>
     <tab-bar-item path="/profile" :order="4">
       <template v-slot:item-icon>
-        <img src="@/assets/images/tabbar/profile.svg" alt="">
+        <img src="@/assets/images/tabbar/profile.svg" alt />
       </template>
       <template v-slot:item-icon-active>
-        <img slot="item-icon-active" src="@/assets/images/tabbar/profile_active.svg" alt="">
+        <img slot="item-icon-active" src="@/assets/images/tabbar/profile_active.svg" alt />
       </template>
       <template v-slot:item-text>
         <span slot="item-text">我的</span>
       </template>
     </tab-bar-item>
-
   </tab-bar>
 </template>
 
-<script>
-import {computed, defineComponent, ref} from 'vue'
-// import TabBar from "../common/tabbar/TabBar.vue";
+<script setup>
+import { computed, defineComponent, ref } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+
 import TabBar from "/components/common/tabbar/TabBar.vue";
 import TabBarItem from "/components/common/tabbar/TabBarItem.vue";
-// import { useState } from '@/utils/replaceVuex';
 
-export default defineComponent({
-  components: {
-    TabBar,
-    TabBarItem
-  },
-  setup(props, {emit}) {
-    // const activeIndex = ref(1)
-    let target
-    let order = ref(0)
-    // const onHandleClicks = (targets, orders) => {
-    //   target = targets
-    //   order.value = orders
-    // }
-    return {
-      target,
-      order,
-    }
-  }
+let order = ref(0)
+const route = useRoute()
+const router = useRouter()
+
+const isDetail = computed(() => {
+  // 这个计算方式真的很垃圾，只是判断一个路由的地址存在这样
+  return route.path.indexOf('detail') === -1
 })
 </script>
 
