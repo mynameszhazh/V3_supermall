@@ -17,6 +17,7 @@
       <detailcomment class="comment" ref="comment" :comment-info="commentInfo"></detailcomment>
       <goodlist class="likes" ref="recommend" :currentGoods="reCommendInfo"></goodlist>
     </scroll>
+    <detailbootombar @shopcarclicks="shopcarclicks"></detailbootombar>
     <backtop v-show="isshow" @click.native="backclick(home_scroll2)"></backtop>
   </div>
 </template>
@@ -28,6 +29,7 @@ import detailinfo from './detailcomps/detailinfo.vue'
 import detailimginfo from './detailcomps/detailimginfo.vue'
 import detailshopinfo from './detailcomps/detailshopinfo.vue'
 import detailparamsinfo from './detailcomps/detailparamsinfo.vue'
+import detailbootombar from './detailcomps/detailbootombar.vue'
 import detailcomment from './detailcomps/detailcomment.vue'
 import detailnavbar from './detailcomps/detailnavbar.vue'
 import scroll from '/components/common/scroll/index.vue'
@@ -85,6 +87,11 @@ const reCommendData = async () => {
   reCommendInfo.list = data.data.list
 }
 
+// 点击购物车
+const shopcarclicks = () => {
+  console.log('点击了购物车')
+}
+
 const pullingup = () => {
   // console.log(1)
 }
@@ -103,7 +110,7 @@ const contentScrollChanges = (options) => {
     if (currentIndex.value !== i && ((i < len - 1 && optionY >= jumpTop.value[i]) ||
       (i === len - 1 && optionY >= jumpTop.value[i]))) {
       currentIndex.value = i
-      nav.value.currentIndex = currentIndex.value
+      nav.value ? nav.value.currentIndex = currentIndex.value : null
     }
   }
   backTopScr(options)
@@ -146,9 +153,11 @@ onMounted(() => {
 
 <style scoped>
 .detail {
-  height: 100vh;
-  background-color: #fff;
   position: relative;
+  z-index: 9;
+  background-color: #fff;
+  height: 100vh;
+  overflow: hidden;
 }
 .detail .content {
   position: absolute;
