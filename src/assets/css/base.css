@@ -28,6 +28,7 @@ body {
     /* rem vw/vh */
     width: 100vw;
     background-color: #eeeeee;
+    position: relative;
 }
 
 a {
@@ -55,4 +56,12 @@ a {
 
 .right {
     float: right;
+}
+
+#toast {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
 }

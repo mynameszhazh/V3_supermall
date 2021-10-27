@@ -1,5 +1,5 @@
 <template>
-  <tab-bar :order="order" v-if="isDetail">
+  <tab-bar class="maintabbar" :order="order" v-if="isDetail">
     <tab-bar-item path="/home" :order="1" activeColor="skyblue">
       <template v-slot:item-icon>
         <img src="@/assets/images/tabbar/home.svg" alt />
@@ -65,6 +65,9 @@ const isDetail = computed(() => {
 </script>
 
 <style scoped>
+.maintabbar {
+  z-index: 999;
+}
 img {
   width: 24px;
   height: 24px;
