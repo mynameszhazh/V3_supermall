@@ -10,7 +10,6 @@
 
 <script setup>
 import { defineProps, defineEmits, computed } from 'vue'
-
 const emit = defineEmits(['shopcarclicks'])
 
 const shopcarclick = () => {

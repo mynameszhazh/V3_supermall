@@ -19,6 +19,7 @@
     </scroll>
     <detailbootombar @shopcarclicks="shopcarclicks"></detailbootombar>
     <backtop v-show="isshow" @click.native="backclick(home_scroll2)"></backtop>
+    <toast ref="toast"></toast>
   </div>
 </template>
 
@@ -34,6 +35,7 @@ import detailcomment from './detailcomps/detailcomment.vue'
 import detailnavbar from './detailcomps/detailnavbar.vue'
 import scroll from '/components/common/scroll/index.vue'
 import goodlist from '@/components/content/goods/goodlist.vue'
+import Toast from '@/components/common/toast/index.vue'
 
 import { ref, onMounted, defineProps, reactive } from 'vue'
 import { backTopMixin } from '@/common/backtopMixin.js'
@@ -41,7 +43,6 @@ import $store from '@/store/index.js'
 import { detailData, getRecommend } from '@/network/detail/detail.js'
 import { GoodsInfo, ShopInfo } from '@/utils/dataCollect/detail.js'
 import { useRoute, useRouter } from 'vue-router'
-
 const { isshow, backclick, backTopScr } = backTopMixin()
 
 import emitter from '@/utils/eventbus'
@@ -51,6 +52,7 @@ const route = useRoute()
 const router = useRouter()
 
 const home_scroll2 = ref(null)
+const toast = ref(null)
 const params = ref(null)
 const comment = ref(null)
 const recommend = ref(null)
@@ -102,6 +104,7 @@ const shopcarclicks = () => {
 
   $store.dispatch('addCart', pruduct).then(res => {
     // console.log(res)
+    toast.value.show(res, 2000)
   })
 }
 

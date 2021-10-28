@@ -40,7 +40,8 @@ defineExpose({
   z-index: 9999;
   .content {
     width: 100%;
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.4);
+    color: #fff;
     text-align: center;
     line-height: 35px;
     border-radius: 20px;
