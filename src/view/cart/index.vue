@@ -8,6 +8,7 @@
     <scroll class="content" :probe-type="3" ref="home_scroll3" :pull-up-load="true">
       <cartlist :cart-list="cartList"></cartlist>
     </scroll>
+    <cartbottombar></cartbottombar>
   </div>
 </template>
 
@@ -16,6 +17,7 @@
 import NavBar from '/components/common/navbar/index.vue'
 import scroll from '/components/common/scroll/index.vue'
 import cartlist from './cartcomps/cartlist.vue'
+import cartbottombar from './cartcomps/cartbottombar.vue'
 
 import { ref, onMounted } from 'vue'
 import { debounces } from '@/utils/debounce'
@@ -52,6 +54,6 @@ onMounted(() => {
   top: 44px;
   left: 0;
   right: 0;
-  bottom: 57px;
+  bottom: 92px;
 }
 </style>
