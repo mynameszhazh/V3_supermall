@@ -3,7 +3,8 @@
     <ul>
       <li v-for="item in cartList" :key="item.iid">
         <div class="item-selector">
-          <checkbutton></checkbutton>
+          <!-- {{ item.checked }} -->
+          <checkbutton :isChecked="item.checked" @click.native="changeClick(item)"></checkbutton>
         </div>
         <div class="item-cont">
           <div class="cont-img">
@@ -36,6 +37,10 @@ const props = defineProps({
   }
 })
 
+const changeClick = (item) => {
+  item.checked = !item.checked
+}
+
 const cartListImgLoad = () => {
   emitter.emit('cartListImgLoad')
 }
@@ -67,6 +72,7 @@ const cartListImgLoad = () => {
           width: 50px;
           img {
             height: 75px;
+            width: 50px;
           }
         }
         .item-info {

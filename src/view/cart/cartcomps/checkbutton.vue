@@ -1,9 +1,17 @@
 <template>
-  <div class="checkbutton"></div>
+  <div class="checkbutton" :class="{ active: isChecked }"></div>
 </template>
 
 <script setup>
-import { } from 'vue'
+import { defineProps } from 'vue'
+
+defineProps({
+  isChecked: {
+    type: Boolean,
+    required: true
+  }
+})
+// console.log(isChecked)
 </script>
 
 <style lang='less' scoped>
@@ -14,5 +22,8 @@ import { } from 'vue'
   border-radius: 50%;
   text-align: center;
   line-height: 25px;
+}
+.active {
+  background-color: red;
 }
 </style>

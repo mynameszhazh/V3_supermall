@@ -9,7 +9,7 @@ const mutations = {
   },
   addToCart(state, payLoad) {
     payLoad.count = 1;
-    payLoad.checked = true;
+    payLoad.checked = false;
     state.cartList.push(payLoad);
   },
 };
