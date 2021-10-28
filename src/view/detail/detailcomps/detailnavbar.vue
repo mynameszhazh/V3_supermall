@@ -32,12 +32,12 @@ const currentIndex = ref(0)
 
 const emit = defineEmits(['indexParams'])
 
-const props = defineProps({
-  goods: {
-    type: Object,
-    required: true
-  }
-})
+// const props = defineProps({
+//   goods: {
+//     type: Object,
+//     required: true
+//   }
+// })
 
 onMounted(() => {
 })

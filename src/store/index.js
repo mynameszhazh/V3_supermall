@@ -4,6 +4,7 @@ import { createStore } from "vuex";
 import carts from "./modules/carts";
 
 const store = createStore({
+  // namespace: true,
   // 声明变量
   state() {
     return {
