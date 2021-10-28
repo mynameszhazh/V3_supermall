@@ -2,7 +2,7 @@
   <div class="cartbottombar">
     <div class="allSelect">
       <span>全选</span>
-      <checkbutton class="checkbutton" :isChecked="false" @click.native="selectAll"></checkbutton>
+      <checkbutton class="checkbutton" :isChecked="isAllSelect" @click.native="selectAll"></checkbutton>
     </div>
     <div class="allPrice">合计：￥{{ allPrice }}</div>
     <div class="buy" @click="buyAll">购买({{ count }})</div>
@@ -10,17 +10,53 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
 import checkbutton from './checkbutton.vue'
 
-const count = ref(0)
-const allPrice = ref(0)
+import { ref, computed } from 'vue'
 
+import store from '@/store/index.js'
+
+// 购买总数
+const count = computed(() => {
+  let counter = 0
+  store.getters.cartList.forEach(item => {
+    if (item.checked) {
+      counter += item.count
+    }
+  })
+  return counter
+})
+
+// 总价格
+const allPrice = computed(() => {
+  let totalPrice = 0
+  store.getters.cartList.forEach(item => {
+    if (item.checked) {
+      totalPrice += (item.price * item.count)
+    }
+  })
+  return totalPrice
+})
 const buyAll = () => {
   console.log('buy all')
 }
+
+const isAllSelect = computed(() => {
+  const temp = store.getters.cartList.find(item => {
+    return !item.checked
+  })
+  return temp === undefined
+})
 const selectAll = () => {
-  console.log('selectAll')
+  // console.log('selectAll')
+  const temp = isAllSelect.value
+  store.getters.cartList.forEach(item => {
+    if (!temp) {
+      item.checked = true
+    } else {
+      item.checked = false
+    }
+  })
 }
 </script>
 
