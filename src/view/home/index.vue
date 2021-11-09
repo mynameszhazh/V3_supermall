@@ -22,7 +22,7 @@
       <tabcontrol :tabList="['流行', '新款', '精选']"></tabcontrol>
       <goodlist :currentGoods="currentGoods"></goodlist>
     </scroll>
-    <backtop v-show="isshow" @click.native="backclick(home_scroll)"></backtop>
+    <backtop v-show="isshow" @click="backclick(home_scroll)"></backtop>
   </div>
 </template>
 
@@ -57,7 +57,6 @@ const goodList = reactive({
   new: { page: 0, list: [] },
   sell: { page: 0, list: [] }
 })
-
 
 // 当前点击的商品类型
 const currentGoods = computed(() => {
