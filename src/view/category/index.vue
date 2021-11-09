@@ -106,6 +106,15 @@ const _getCategoryDetail = (type) => {
  * 事件响应相关的方法
  */
 const selectItem = (index) => {
+  // console.log(index)
+  category_scroll.value.scrollTo(0, 0, 0)
+  /**
+   * 超级垃圾的使用方式，真的 这个时为了防止第一次出现不加载的情况，后面的防抖函数是其它的操作没有问题
+   */
+  setTimeout(() => {
+    category_scroll.value.refresh()
+  }, 200);
+
   _getSubcategories(index)
 }
 
