@@ -20,7 +20,7 @@ const props = defineProps({
   },
   pullUpLoad: {
     type: Boolean,
-    default: false
+    default: true
   }
 })
 
